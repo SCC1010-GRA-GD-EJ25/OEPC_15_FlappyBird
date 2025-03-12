@@ -5,11 +5,17 @@ let x = 0;
 let posY = 100;
 let dY = 3;
 let estado = 0; //0: menu, 1: jugando, 2: gameOver
-
+let wallX = [];
+let wallY = [];
+let pared;
+let puntaje = 0;
+let puntajeMax = 0;
 function preload() {
   // put preload code here
   imagenFondo = loadImage('./images/fondojuego00.png');
+  imagenInicio = loadImage('./images/fondoInicio.jpg');
   personaje = loadImage('./images/bird.png');
+  pared = loadImage('./images/pared.png');
 }
 
 function setup() {
@@ -20,7 +26,7 @@ function setup() {
 function draw() {
   // put drawing code here
   if(estado === 1){
-    //jugar();    
+    imageMode(CORNER);
     background(255)
     image(imagenFondo, x, 0);
     image(imagenFondo, x+imagenFondo.width, 0);
@@ -30,23 +36,50 @@ function draw() {
     if(x <= -imagenFondo.width){
       x = 0;
     }
+    //Obstaculos
+    for(let i=0;i<wallX.length; i++){
+      imageMode(CENTER);
+      image(pared, wallX[i], wallY[i]-500);
+      image(pared, wallX[i], wallY[i]+500);
+      if(wallX[i] < 0){
+        wallX[i] = width;
+        wallY[i] = random(200, 300);
+      }
+
+    //Puntaje
+    if(wallX[i] === 100){
+      puntaje = puntaje + 1;
+      puntajeMax = max(puntaje, puntajeMax);
+      wallX[i] = wallX[i] - 5;
+    }
+    }
+
+    //Personaje
   image(personaje, 100, posY, 60, 60); 
+  text("Puntaje: " + puntaje, width/2, 100);
 } else if(estado === 0){
   cursor();
-  image(imagenFondo, 0, 0);
-  textSize(50);
+  image(imagenInicio, 0, 0, 450, 600);
+  textSize(24);
   fill(255);
-  text("Haga clic para comenzar", 100, 100);
+  text("Haga clic para comenzar", 600, 100);
+  text("Haga clic para comenzar", 700, 100);
 }
 }
 
 function mousePressed(){
-  dY = -15;
   if(estado === 0){
     estado = 1;
     posY = 100;
     x = 0;
     dY = 3;
+    wallX = [500, 800, 110];
+    wallY [0] = random(200, 300);
+    wallY [1] = random(200, 300);
+    wallY [2] = random(200, 300);
+
     noCursor();
   }
+  dY = -15;
+
 }
