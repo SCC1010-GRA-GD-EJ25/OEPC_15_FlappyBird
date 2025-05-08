@@ -11,12 +11,13 @@ let pared;
 let puntaje = 0;
 let puntajeMax = 0;
 let recordAnterior = 0;
-let musicaRecord;
 let musicaJuego;
 let fuente;
 
 //New
 let i=0;
+let aux=0;
+let v=8;
 let dv1;
 let dv2;
 let dv3;
@@ -29,10 +30,11 @@ function preload() {
   imagenFondo = loadImage('./images/fondojuego00.png');
   imagenInicio = loadImage('./images/fondoInicio.jpg');
   personaje = loadImage('./images/bird.png');
-  pared = loadImage('./images/pared.png');
-  musicaRecord = loadSound('./sounds/aplauso.wav')
+  pared = loadImage('./images/torre.png');
+  musicaTrompeta = loadSound('./sounds/trompeta.mp3')
+  musicaCuerno = loadSound('./sounds/cuerno.mp3')
   musicaJuego = loadSound('./sounds/musicafondo.mp3')
-  fuente = loadFont('./fonts/PetLove.ttf')
+  fuente = loadFont('./fonts/MedievalSharp-Bold.ttf')
 
   //New
   dv1 = loadImage('./images/volando1.png');
@@ -45,7 +47,7 @@ function preload() {
 
 function setup() {
   // put setup code here
-  createCanvas(1000,512)
+  createCanvas(1000,480)
   noCursor()
   textFont(fuente)
 }
@@ -53,6 +55,10 @@ function setup() {
 function draw() {
   // put drawing code here
   if(estado === 1){
+    if(aux==0){
+    musicaCuerno.play();
+    aux=1;
+    }
     imageMode(CORNER);
     background(255)
     image(imagenFondo, x, 0);
@@ -66,11 +72,11 @@ function draw() {
     //Obstaculos
     for(let i=0;i<wallX.length; i++){
       imageMode(CENTER);
-      image(pared, wallX[i], wallY[i]-500);
-      image(pared, wallX[i], wallY[i]+500);
+      image(pared, wallX[i], wallY[i]-260, 100, 300);
+      image(pared, wallX[i], wallY[i]+240, 100, 300);
       if(wallX[i] < 0){
         wallX[i] = width;
-        wallY[i] = random(200, 300);
+        wallY[i] = random(150, 350);
       }
 
     //Puntaje
@@ -83,12 +89,11 @@ function draw() {
             || (abs(wallX[i]-100)<60 
             && abs(wallY[i]-posY)>100)){
             musicaJuego.stop();
-            estado=0;
+            estado=2;
           } 
     }
 
     //Personaje
-  //image(personaje, 100, posY, 60, 60); 
   dragon_volando(100, posY, 60, 60);
 
   text("Puntaje: " + puntaje, width/2, 100);
@@ -96,19 +101,20 @@ function draw() {
   background(0);
   imageMode(CORNER);
   cursor();
-  image(imagenInicio, 0, 0, 450, 600);
-  textSize(24);
+  image(imagenInicio, 0, 0, 728, 408);
+  textSize(20);
   fill(255);
-  text("Puntaje Maximo: "+puntajeMax, 600, 100);
-  text("Haga clic para comenzar", 600, 200);
+  text("Puntaje Maximo: "+puntajeMax, 750, 100);
+  text("Haga clic para comenzar", 750, 200);
   if(puntajeMax > recordAnterior){
-    if(!musicaRecord.isPlaying()){
-    musicaRecord.play();
+    if(!musicaTrompeta.isPlaying()){
+    musicaTrompeta.play();
     }
   }
 }
   
   if(estado === 2){
+    aux==0;
     image(imagenInicio, 0, 0, width, height);
     textSize(32);
     fill(255);
@@ -132,8 +138,8 @@ function mousePressed(){
     recordAnterior = puntajeMax;
     noCursor();
 
-    if(musicaRecord.isPlaying()){
-      musicaRecord.stop();
+    if(musicaTrompeta.isPlaying()){
+      musicaTrompeta.stop();
     }
     musicaJuego.loop();
   }
@@ -142,38 +148,35 @@ function mousePressed(){
 }
 
 function dragon_volando(x, y, w, h){
-  if(i<30){  
+  if(i<v){  
     image(dv1, x, y, w, h);  
     i++;
-  }else if(i<60){
+  }else if(i<v){
     image(dv2, x, y, w, h);
     i++;
-  }else if(i<90){
+  }else if(i<2*v){
     image(dv3, x, y, w, h);
-    i=1;
-  }else if(i<120){
+    i++;
+  }else if(i<3*v){
     image(dv4, x, y, w, h);
     i++;
-  }else if(i<150){
+  }else if(i<4*v){
     image(dv5, x, y, w, h);
     i++;
-  }else if(i<180){
+  }else if(i<5*v){
     image(dv6, x, y, w, h);
-    i=0;
-  }else if(i<210){
-  image(dv6, x, y, w, h);
-  i++;
-  }else if(i<240){
+   i++;
+  }else if(i<6*v){
     image(dv5, x, y, w, h);
-    i=1;
-  }else if(i<270){
+    i++;
+  }else if(i<7*v){
     image(dv4, x, y, w, h);
     i++;
-  }else if(i<300){
+  }else if(i<8*v){
     image(dv3, x, y, w, h);
     i++;
-  }else if(i<330){
+  }else if(i<9*v){
     image(dv2, x, y, w, h);
-    i=0;
+    i=1;
   }
   }
