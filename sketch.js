@@ -15,6 +15,15 @@ let musicaRecord;
 let musicaJuego;
 let fuente;
 
+//New
+let i=0;
+let dv1;
+let dv2;
+let dv3;
+let dv4;
+let dv5;
+let dv6;
+
 function preload() {
   // put preload code here
   imagenFondo = loadImage('./images/fondojuego00.png');
@@ -24,6 +33,14 @@ function preload() {
   musicaRecord = loadSound('./sounds/aplauso.wav')
   musicaJuego = loadSound('./sounds/musicafondo.mp3')
   fuente = loadFont('./fonts/PetLove.ttf')
+
+  //New
+  dv1 = loadImage('./images/volando1.png');
+  dv2 = loadImage('./images/volando2.png');
+  dv3 = loadImage('./images/volando3.png');
+  dv4 = loadImage('./images/volando4.png');
+  dv5 = loadImage('./images/volando5.png');
+  dv6 = loadImage('./images/volando6.png');
 }
 
 function setup() {
@@ -71,7 +88,9 @@ function draw() {
     }
 
     //Personaje
-  image(personaje, 100, posY, 60, 60); 
+  //image(personaje, 100, posY, 60, 60); 
+  dragon_volando(100, posY, 60, 60);
+
   text("Puntaje: " + puntaje, width/2, 100);
 } else if(estado === 0){
   background(0);
@@ -88,6 +107,15 @@ function draw() {
     }
   }
 }
+  
+  if(estado === 2){
+    image(imagenInicio, 0, 0, width, height);
+    textSize(32);
+    fill(255);
+    text("Game Over", width/2-50, height/2-50);
+    text("Puntaje: " + puntaje, width/2-50, height/2);
+    text("Haga clic para reiniciar", width/2-50, height/2+50);
+  }
 }
 
 function mousePressed(){
@@ -112,3 +140,40 @@ function mousePressed(){
   dY = -15;
 
 }
+
+function dragon_volando(x, y, w, h){
+  if(i<30){  
+    image(dv1, x, y, w, h);  
+    i++;
+  }else if(i<60){
+    image(dv2, x, y, w, h);
+    i++;
+  }else if(i<90){
+    image(dv3, x, y, w, h);
+    i=1;
+  }else if(i<120){
+    image(dv4, x, y, w, h);
+    i++;
+  }else if(i<150){
+    image(dv5, x, y, w, h);
+    i++;
+  }else if(i<180){
+    image(dv6, x, y, w, h);
+    i=0;
+  }else if(i<210){
+  image(dv6, x, y, w, h);
+  i++;
+  }else if(i<240){
+    image(dv5, x, y, w, h);
+    i=1;
+  }else if(i<270){
+    image(dv4, x, y, w, h);
+    i++;
+  }else if(i<300){
+    image(dv3, x, y, w, h);
+    i++;
+  }else if(i<330){
+    image(dv2, x, y, w, h);
+    i=0;
+  }
+  }
