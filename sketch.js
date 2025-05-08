@@ -25,6 +25,36 @@ let dv4;
 let dv5;
 let dv6;
 
+let ataque = false;
+let randomEnemigo = 0;
+
+let congelado = false;
+
+let ime=0;
+
+let randomMedusa=1;
+let imedusa=0;
+let animacion_medusa = false;
+let medusa1;
+let medusa2;
+let medusa3;
+let medusa4;
+let medusa5;
+let medusa6; 
+let medusa7;
+let medusa8;
+
+let randomMago=0;
+let imago=0;
+let animacion_mago = false;
+let mago1;
+let mago2;
+let mago3;
+let mago4;
+let mago5;
+let mago6;
+let mago7;
+
 function preload() {
   // put preload code here
   imagenFondo = loadImage('./images/fondojuego00.png');
@@ -43,6 +73,24 @@ function preload() {
   dv4 = loadImage('./images/volando4.png');
   dv5 = loadImage('./images/volando5.png');
   dv6 = loadImage('./images/volando6.png');
+
+  medusa1 = loadImage('./images/unomedu.png');
+  medusa2 = loadImage('./images/dosmedu.png');
+  medusa3 = loadImage('./images/tresmedu.png');
+  medusa4 = loadImage('./images/cuatromedu.png');
+  medusa5 = loadImage('./images/cincomedu.png');
+  medusa6 = loadImage('./images/seismedu.png');
+  medusa7 = loadImage('./images/sietemedu.png');
+  medusa8 = loadImage('./images/ochomedu.png'); 
+
+  
+  mago1 = loadImage('./images/mago1.png');
+  mago2 = loadImage('./images/mago2.png');
+  mago3 = loadImage('./images/mago3.png');
+  mago4 = loadImage('./images/mago4.png');
+  mago5 = loadImage('./images/mago5.png');
+  mago6 = loadImage('./images/mago6.png');
+  mago7 = loadImage('./images/mago7.png');
 }
 
 function setup() {
@@ -89,15 +137,55 @@ function draw() {
             || (abs(wallX[i]-100)<60 
             && abs(wallY[i]-posY)>100)){
             musicaJuego.stop();
-            estado=2;
+            estado=0;
           } 
     }
 
     //Personaje
   dragon_volando(100, posY, 60, 60);
-
   text("Puntaje: " + puntaje, width/2, 100);
+
+  //Enemigos
+  //medusa
+  if(ataque==false){
+    randomEnemigo = (random(1, 300));
+    console.log("ataque false")
+    animacion_medusa = false;
+  }
+  if(randomEnemigo>randomMedusa && randomEnemigo<randomMedusa+1){
+    ataque = true;
+    if(animacion_medusa==false){
+    ataqueMedusa( 1000-imedusa, 460, 60, 60);
+    console.log("ataque medusa");
+    imedusa+=5;
+    }
+    if(1000-imedusa>60 && 1000-imedusa<140 && posY>460 && posY<540){
+      congelado = true;
+      estado=0;
+      console.log("congelado");
+    }
+//mago
+if(randomEnemigo>randomMago && randomEnemigo<randomMago+1){
+    ataque = true;
+    if(animacion_medusa==false){
+    ataqueMago( 1000-imago, 460, 60, 60);
+    console.log("ataque mago");
+    imago+=5;
+    }
+    if(1000-imago>60 && 1000-imago<140 && posY>460 && posY<540){
+      congelado = true;
+      estado=0;
+      console.log("asesinado");
+    }
+  }
 } else if(estado === 0){
+  ataque = false;
+  congelado = false;
+  animacion_medusa = false;
+  animacion_mago = true;
+  ime = 0;
+  aux = 0;
+  imedusa = 0;
   background(0);
   imageMode(CORNER);
   cursor();
@@ -112,16 +200,6 @@ function draw() {
     }
   }
 }
-  
-  if(estado === 2){
-    aux==0;
-    image(imagenInicio, 0, 0, width, height);
-    textSize(32);
-    fill(255);
-    text("Game Over", width/2-50, height/2-50);
-    text("Puntaje: " + puntaje, width/2-50, height/2);
-    text("Haga clic para reiniciar", width/2-50, height/2+50);
-  }
 }
 
 function mousePressed(){
@@ -177,6 +255,61 @@ function dragon_volando(x, y, w, h){
     i++;
   }else if(i<9*v){
     image(dv2, x, y, w, h);
+    i++;
+  }else if(i<10*v){
     i=1;
   }
+}
+  function ataqueMedusa(x, y, w, h){
+  if(ime<v){
+    image(medusa1, x, y, w, h);
+  }else if(ime<2*v){
+    image(medusa2, x, y, w, h);
+  }else if(ime<3*v){
+    image(medusa3, x, y, w, h);
+  }else if(ime<4*v){
+    image(medusa4, x, y, w, h);
+  }else if(ime<5*v){
+    image(medusa5, x, y, w, h);
+  }else if(ime<6*v){
+    image(medusa6, x, y, w, h);
+  }else if(ime<7*v){
+    image(medusa7, x, y, w, h);
+  }else if(ime<30*v){
+    image(medusa8, x, y, w, h);
+  }else if(ime<31*v){
+    ime=1;
+    animacion_medusa = true;
+    ataque = false;
+    console.log("congelado");
+    ataque = false; 
+    imedusa = 0;
   }
+  ime++;
+  }
+
+  function ataqueMago(x, y, w, h){
+  if(imago<v){
+    image(mago1, x, y, w, h);
+  }else if(imago<2*v){
+    image(mago2, x, y, w, h);
+  }else if(imago<3*v){
+    image(mago3, x, y, w, h);
+  }else if(imago<4*v){
+    image(mago4, x, y, w, h);
+  }else if(imago<5*v){
+    image(mago5, x, y, w, h);
+  }else if(imago<6*v){
+    image(mago6, x, y, w, h);
+  }else if(imago<30*v){
+    image(mago7, x, y, w, h);
+  }else if(imago<31*v){
+    imago=1;
+    animacion_mago = true;
+    console.log("congelado");
+    ataque = false; 
+    imedusa = 0;
+  }
+  imago++;
+  }
+}
