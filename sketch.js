@@ -44,7 +44,7 @@ let medusa6;
 let medusa7;
 let medusa8;
 
-let randomMago=0;
+let randomMago=2;
 let imago=0;
 let animacion_mago = false;
 let mago1;
@@ -146,44 +146,51 @@ function draw() {
   text("Puntaje: " + puntaje, width/2, 100);
 
   //Enemigos
-  //medusa
   if(ataque==false){
-    randomEnemigo = (random(1, 300));
+    randomEnemigo = Math.floor(random(0, 10));
     console.log("ataque false")
     animacion_medusa = false;
+    animacion_mago = false;
+    console.log(randomEnemigo);
   }
-  if(randomEnemigo>randomMedusa && randomEnemigo<randomMedusa+1){
+
+  switch(randomEnemigo){
+    case randomMedusa:
     ataque = true;
     if(animacion_medusa==false){
     ataqueMedusa( 1000-imedusa, 460, 60, 60);
     console.log("ataque medusa");
     imedusa+=5;
     }
-    if(1000-imedusa>60 && 1000-imedusa<140 && posY>460 && posY<540){
+    if(/*1000-imedusa>90 && 1000-imedusa<110  &*/ posY>490 && posY<510){
       congelado = true;
       estado=0;
       console.log("congelado");
     }
-//mago
-if(randomEnemigo>randomMago && randomEnemigo<randomMago+1){
+    break;
+    case randomMago:
     ataque = true;
-    if(animacion_medusa==false){
-    ataqueMago( 1000-imago, 460, 60, 60);
     console.log("ataque mago");
-    imago+=5;
+    if(animacion_mago==false){
+    ataqueMago( 1000-imago, 440, 180,180);
+    console.log("ataque mago");
+    imago+=4;
     }
-    if(1000-imago>60 && 1000-imago<140 && posY>460 && posY<540){
+    if(1000-imago>80 && 1000-imago<120 && posY>480 && posY<529){
       congelado = true;
       estado=0;
       console.log("asesinado");
     }
+    break;
   }
+
 } else if(estado === 0){
   ataque = false;
   congelado = false;
   animacion_medusa = false;
   animacion_mago = true;
   ime = 0;
+  imago = 0;
   aux = 0;
   imedusa = 0;
   background(0);
@@ -293,17 +300,17 @@ function dragon_volando(x, y, w, h){
     image(mago1, x, y, w, h);
   }else if(imago<2*v){
     image(mago2, x, y, w, h);
-  }else if(imago<3*v){
-    image(mago3, x, y, w, h);
   }else if(imago<4*v){
+    image(mago3, x, y, w, h);
+  }else if(imago<8*v){
     image(mago4, x, y, w, h);
-  }else if(imago<5*v){
+  }else if(imago<12*v){
     image(mago5, x, y, w, h);
-  }else if(imago<6*v){
+  }else if(imago<14*v){
     image(mago6, x, y, w, h);
-  }else if(imago<30*v){
+  }else if(imago<180*v){
     image(mago7, x, y, w, h);
-  }else if(imago<31*v){
+  }else if(imago<300*v){
     imago=1;
     animacion_mago = true;
     console.log("congelado");
@@ -312,4 +319,3 @@ function dragon_volando(x, y, w, h){
   }
   imago++;
   }
-}
