@@ -30,8 +30,8 @@ let randomEnemigo = 0;
 
 let congelado = false;
 
+//Medusa
 let ime=0;
-
 let randomMedusa=1;
 let imedusa=0;
 let animacion_medusa = false;
@@ -44,6 +44,7 @@ let medusa6;
 let medusa7;
 let medusa8;
 
+//Mago
 let randomMago=2;
 let imago=0;
 let animacion_mago = false;
@@ -54,6 +55,52 @@ let mago4;
 let mago5;
 let mago6;
 let mago7;
+
+//Gladiadora
+let randomGladiadora=3;
+let gladiadora1;
+let gladiadora2;  
+let gladiadora3;
+let gladiadora4;
+let gladiadora5;
+let gladiadora6;
+let gladiadora7;
+let gladiadora8;
+
+//Duende
+let randomDuende=4;
+let duende1;
+let duende2;
+let duende3;
+let duende4;
+let duende5;
+let duende6;
+let duende7;
+let duende8;
+let duende9;
+let duende10;
+let duende11;
+let duende12;
+let duende13;
+let duende14;
+
+//Golem
+let randomGolem=5;
+let golem1;
+let golem2;
+let golem3;
+let golem4;
+let golem5;
+let golem6;
+
+//Lobo
+let randomLobo=6;
+let lobo1;
+let lobo2;
+let lobo3;
+let lobo4;
+let lobo5;
+let lobo6;
 
 function preload() {
   // put preload code here
@@ -91,6 +138,46 @@ function preload() {
   mago5 = loadImage('./images/mago5.png');
   mago6 = loadImage('./images/mago6.png');
   mago7 = loadImage('./images/mago7.png');
+
+  gladiadora1 = loadImage('./images/gladiadora/gladiadora1.png');
+  gladiadora2 = loadImage('./images/gladiadora/gladiadora2.png');
+  gladiadora3 = loadImage('./images/gladiadora/gladiadora3.png');
+  gladiadora4 = loadImage('./images/gladiadora/gladiadora4.png');
+  gladiadora5 = loadImage('./images/gladiadora/gladiadora5.png');
+  gladiadora6 = loadImage('./images/gladiadora/gladiadora6.png');
+  gladiadora7 = loadImage('./images/gladiadora/gladiadora7.png');
+  gladiadora8 = loadImage('./images/gladiadora/gladiadora8.png');
+  
+  duende1 = loadImage('./images/duende/duende1.png');
+  duende2 = loadImage('./images/duende/duende2.png');
+  duende3 = loadImage('./images/duende/duende3.png');
+  duende4 = loadImage('./images/duende/duende4.png');
+  duende5 = loadImage('./images/duende/duende5.png');
+  duende6 = loadImage('./images/duende/duende6.png');
+  duende7 = loadImage('./images/duende/duende7.png'); 
+  duende8 = loadImage('./images/duende/duende8.png');
+  duende9 = loadImage('./images/duende/duende9.png');
+  duende10 = loadImage('./images/duende/duende10.png');
+  duende11 = loadImage('./images/duende/duende11.png');
+  duende12 = loadImage('./images/duende/duende12.png');
+  duende13 = loadImage('./images/duende/duende13.png');
+  duende14 = loadImage('./images/duende/duende14.png');
+
+  golem1 = loadImage('./images/golem/golem1.png');
+  golem2 = loadImage('./images/golem/golem2.png');
+  golem3 = loadImage('./images/golem/golem3.png');
+  golem4 = loadImage('./images/golem/golem4.png');
+  golem5 = loadImage('./images/golem/golem5.png');
+  golem6 = loadImage('./images/golem/golem6.png');
+
+  lobo1 = loadImage('./images/lobo/lobo1.png');
+  lobo2 = loadImage('./images/lobo/lobo2.png');
+  lobo3 = loadImage('./images/lobo/lobo3.png');
+  lobo4 = loadImage('./images/lobo/lobo4.png');
+  lobo5 = loadImage('./images/lobo/lobo5.png');
+  lobo6 = loadImage('./images/lobo/lobo6.png');
+  
+  
 }
 
 function setup() {
@@ -102,7 +189,6 @@ function setup() {
 
 function draw() {
   // put drawing code here
-  console.log(posY);
   if(estado === 1){
     if(aux==0){
     musicaCuerno.play();
@@ -121,8 +207,8 @@ function draw() {
     //Obstaculos
     for(let i=0;i<wallX.length; i++){
       imageMode(CENTER);
-      image(pared, wallX[i], wallY[i]-260, 100, 300);
-      image(pared, wallX[i], wallY[i]+240, 100, 300);
+      image(pared, wallX[i], wallY[i]-260, 100, 300); //Arriba
+      image(pared, wallX[i], wallY[i]+240, 100, 300); //Abajo
       if(wallX[i] < 0){
         wallX[i] = width;
         wallY[i] = random(150, 350);
@@ -148,43 +234,89 @@ function draw() {
 
   //Enemigos
   if(ataque==false){
-    randomEnemigo = Math.floor(random(0, 10));
-    //console.log("ataque false")
+   randomEnemigo = Math.floor(random(1, 7));
+    console.log(randomEnemigo);
     animacion_medusa = false;
     animacion_mago = false;
-    
-    //console.log(randomEnemigo);
   }
 
   switch(randomEnemigo){
     case randomMedusa:
     ataque = true;
     if(animacion_medusa==false){
-    ataqueMedusa( 1000-imedusa, 460, 60, 60);
-    //console.log("ataque medusa");
+    ataqueMedusa( 1067-imedusa, 405 , 60, 60);
     imedusa+=5;
     }
     if(1000-imedusa<140 && posY>400){
       congelado = true;
       estado=0;
       console.log("congelado");
-        console.log(posY);
-
+      console.log(posY);
     }
     break;
-    case randomMago:
+
+    case randomMago: 
     ataque = true;
-    //console.log("ataque mago");
     if(animacion_mago==false){
-    ataqueMago( 1000-imago, 440, 180,180);
-    //console.log("ataque mago");
+    ataqueMago( 1000-imago,400, 90,90);
     imago+=4;
     }
-    if(1000-imago<140 && posY>400){
+   if(1000-imago<180 && posY>400){
       congelado = true;
       estado=0;
       console.log("asesinado");
-        console.log(posY);
+    }
+    break;
+
+    case randomGladiadora: 
+    ataque = true;
+    if(animacion_mago==false){
+    ataqueGladiadora( 1000-imago,390, 90,90);
+    imago+=4;
+    }
+   if(1000-imago<140 && posY>400){
+      congelado = true;
+      estado=0;
+      console.log("gladiadorizado");
+    }
+    break;
+
+    case randomDuende: 
+    ataque = true;
+    if(animacion_mago==false){
+    ataqueDuende( 1000-imago,400, 60,60);
+    imago+=4;
+    }
+   if(1000-imago<100 && posY>400){
+      congelado = true;
+      estado=0;
+      console.log("duendeizado");
+    }
+    break;
+
+    case randomGolem: 
+    ataque = true;
+    if(animacion_mago==false){
+    ataqueGolem( 1000-imago,365, 150,150);
+    imago+=4;
+    }
+   if(1000-imago<180 && posY>400){
+      congelado = true;
+      estado=0;
+      console.log("golemitizado");
+    }
+    break;
+
+    case randomLobo: 
+    ataque = true;
+    if(animacion_mago==false){
+    ataqueLobo( 1000-imago,400, 70,70);
+    imago+=4;
+    }
+   if(1000-imago<160 && posY>400){
+      congelado = true;
+      estado=0;
+      console.log("loboizado");
     }
     break;
   }
@@ -273,27 +405,38 @@ function dragon_volando(x, y, w, h){
   }
 }
   function ataqueMedusa(x, y, w, h){
-  if(ime<v){
+  if(ime<10*v){
     image(medusa1, x, y, w, h);
-  }else if(ime<2*v){
+  }else if(ime<10.5*v){
     image(medusa2, x, y, w, h);
-  }else if(ime<3*v){
+  }else if(ime<11*v){
     image(medusa3, x, y, w, h);
-  }else if(ime<4*v){
+  }else if(ime<11.5*v){
     image(medusa4, x, y, w, h);
-  }else if(ime<5*v){
+  }else if(ime<12*v){
     image(medusa5, x, y, w, h);
-  }else if(ime<6*v){
+  }else if(ime<12.8*v){
     image(medusa6, x, y, w, h);
-  }else if(ime<7*v){
+  }else if(ime<13.6*v){
     image(medusa7, x, y, w, h);
-  }else if(ime<30*v){
+  }else if(ime<20*v){
     image(medusa8, x, y, w, h);
-  }else if(ime<31*v){
+  }else if(ime<20*v){
+    image(medusa7, x, y, w, h);  
+  }else if(ime<21*v){
+    image(medusa6, x, y, w, h);
+  }else if(ime<22*v){
+    image(medusa5, x, y, w, h);
+  }else if(ime<23*v){
+    image(medusa4, x, y, w, h);
+  }else if(ime<24*v){
+    image(medusa3, x, y, w, h);    
+  }else if(ime<50*v){
+    image(medusa2, x, y, w, h);
+  }else if(ime>50*v){
     ime=1;
     animacion_medusa = true;
     ataque = false;
-    ataque = false; 
     imedusa = 0;
   }
   ime++;
@@ -302,34 +445,172 @@ function dragon_volando(x, y, w, h){
   function ataqueMago(x, y, w, h){
   if(imago<v){
     image(mago1, x, y, w, h);
-  }else if(imago<100*v){
+  }else if(imago<50*v){
     image(mago2, x, y, w, h);
-  }else if(imago<104*v){
+  }else if(imago<54*v){
     image(mago3, x, y, w, h);
-  }else if(imago<108*v){
+  }else if(imago<58*v){
     image(mago4, x, y, w, h);
-  }else if(imago<112*v){
+  }else if(imago<62*v){
     image(mago5, x, y, w, h);
-  }else if(imago<124*v){
+  }else if(imago<66*v){
     image(mago6, x, y, w, h);
-  }else if(imago<126*v){
+  }else if(imago<70*v){
     image(mago7, x, y, w, h);
-  }else if(imago<128*v){
+  }else if(imago<74*v){
+    image(mago6, x, y, w, h);
+  }else if(imago<78*v){
+    image(mago7, x, y, w, h);
+  }else if(imago<82*v){
     image(mago6, x, y, w, h);  
-  }else if(imago<130*v){
+ }else if(imago<86*v){
+    image(mago7, x, y, w, h);
+  }else if(imago<90*v){
+    image(mago6, x, y, w, h);  
+ }else if(imago<94*v){
+    image(mago7, x, y, w, h);
+  }else if(imago<98*v){
+    image(mago6, x, y, w, h);  
+  }else if(imago<102*v){
+    image(mago7, x, y, w, h);
+  }else if(imago<106*v){
+    image(mago6, x, y, w, h);    
+  }else if(imago<110*v){
     image(mago5, x, y, w, h);
-  }else if(imago<142*v){
+  }else if(imago<112*v){
     image(mago4, x, y, w, h);
-  }else if(imago<164*v){
+  }else if(imago<114*v){
     image(mago3, x, y, w, h);
-  }else if(imago<300*v){
+  }else if(imago<150*v){
     image(mago2, x, y, w, h);
-  }else if(imago<380*v){
+  }else if(imago>150*v){
     imago=1;
     animacion_mago = true;
     ataque = false; 
-    imedusa = 0;
   }
   imago++;
-  console.log(x+", "+y+", "+w+", "+h);
+  }
+
+  function ataqueGladiadora(x, y, w, h){
+if(imago<v){
+    image(gladiadora1, x, y, w, h);
+  }else if(imago<50*v){
+    image(gladiadora2, x, y, w, h);
+  }else if(imago<54*v){
+    image(gladiadora3, x, y, w, h);
+  }else if(imago<58*v){
+    image(gladiadora4, x, y, w, h);
+  }else if(imago<62*v){
+    image(gladiadora5, x, y, w, h);
+  }else if(imago<66*v){
+    image(gladiadora6, x, y, w, h);
+  }else if(imago<70*v){
+    image(gladiadora7, x, y, w, h);
+  }else if(imago<150*v){
+    image(gladiadora8, x, y, w, h);
+   }else if(imago>150*v){
+    imago=1;
+    animacion_mago = true;
+    ataque = false; 
+  }
+  imago++;
+  }
+
+function ataqueDuende(x, y, w, h){
+if(imago<v){
+    image(duende1, x, y, w, h);
+  }else if(imago<60*v){
+    image(duende2, x, y, w, h);
+  }else if(imago<64*v){
+    image(duende3, x, y, w, h);
+  }else if(imago<68*v){
+    image(duende4, x, y, w, h);
+  }else if(imago<72*v){
+    image(duende5, x, y, w, h);
+  }else if(imago<76*v){
+    image(duende6, x, y, w, h);
+  }else if(imago<80*v){
+    image(duende7, x, y, w, h);
+  }else if(imago<84*v){
+    image(duende8, x, y, w, h);
+  }else if(imago<88*v){
+    image(duende9, x, y, w, h);
+  }else if(imago<92*v){
+    image(duende10, x, y, w, h); 
+  }else if(imago<96*v){
+    image(duende11, x, y, w, h);
+  }else if(imago<100*v){
+    image(duende12, x, y, w, h);
+  }else if(imago<104*v){
+    image(duende13, x, y, w, h);
+  }else if(imago<210*v){
+    image(duende14, x, y, w, h);
+   }else if(imago>210*v){
+    imago=1;
+    animacion_mago = true;
+    ataque = false; 
+  }
+  imago++;
+  }
+
+  function ataqueGolem(x, y, w, h){
+if(imago<v){
+    image(golem1, x, y, w, h);
+  }else if(imago<80*v){
+    image(golem2, x, y, w, h);
+  }else if(imago<84*v){
+    image(golem3, x, y, w, h);
+  }else if(imago<88*v){
+    image(golem4, x, y, w, h);
+  }else if(imago<92*v){
+    image(golem5, x, y, w, h);
+  }else if(imago<96*v){
+    image(golem6, x, y, w, h);
+  }else if(imago<100*v){
+    image(golem5, x, y, w, h);
+  }else if(imago<104*v){
+    image(golem4, x, y, w, h);
+  }else if(imago<108*v){
+    image(golem3, x, y, w, h);
+  }else if(imago<112*v){
+    image(golem2, x, y, w, h); 
+  }else if(imago<150*v){
+    image(golem1, x, y, w, h);
+   }else if(imago>150*v){
+    imago=1;
+    animacion_mago = true;
+    ataque = false; 
+  }
+  imago++;
+  }
+
+function ataqueLobo(x, y, w, h){
+if(imago<v){
+    image(lobo1, x, y, w, h);
+  }else if(imago<80*v){
+    image(lobo2, x, y, w, h);
+  }else if(imago<84*v){
+    image(lobo3, x, y, w, h);
+  }else if(imago<88*v){
+    image(lobo4, x, y, w, h);
+  }else if(imago<92*v){
+    image(lobo5, x, y, w, h);
+  }else if(imago<96*v){
+    image(lobo6, x, y, w, h);
+  }else if(imago<100*v){
+    image(lobo5, x, y, w, h);
+  }else if(imago<104*v){
+    image(lobo4, x, y, w, h);
+  }else if(imago<108*v){
+    image(lobo3, x, y, w, h);
+  }else if(imago<112*v){
+    image(lobo2, x, y, w, h); 
+  }else if(imago<150*v){
+    image(lobo1, x, y, w, h);
+   }else if(imago>150*v){
+    imago=1;
+    animacion_mago = true;
+    ataque = false; 
+  }
+  imago++;
   }
