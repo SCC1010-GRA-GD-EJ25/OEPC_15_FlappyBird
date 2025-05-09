@@ -27,7 +27,6 @@ let dv6;
 
 let ataque = false;
 let randomEnemigo = 0;
-
 let congelado = false;
 
 //Medusa
@@ -101,6 +100,7 @@ let lobo3;
 let lobo4;
 let lobo5;
 let lobo6;
+
 
 function preload() {
   // put preload code here
@@ -176,8 +176,6 @@ function preload() {
   lobo4 = loadImage('./images/lobo/lobo4.png');
   lobo5 = loadImage('./images/lobo/lobo5.png');
   lobo6 = loadImage('./images/lobo/lobo6.png');
-  
-  
 }
 
 function setup() {
@@ -234,7 +232,7 @@ function draw() {
 
   //Enemigos
   if(ataque==false){
-   randomEnemigo = Math.floor(random(1, 7));
+  randomEnemigo = Math.floor(random(0, 7));
     console.log(randomEnemigo);
     animacion_medusa = false;
     animacion_mago = false;
@@ -348,6 +346,7 @@ function draw() {
 
 function mousePressed(){
   if(estado === 0){
+    auxSonido=0;
     estado = 1;
     posY = 100;
     x = 0;
@@ -366,9 +365,11 @@ function mousePressed(){
     musicaJuego.loop();
   }
   dY = -15;
-
 }
 
+function touchStarted(){
+  mousePressed();
+}
 function dragon_volando(x, y, w, h){
   if(i<v){  
     image(dv1, x, y, w, h);  
